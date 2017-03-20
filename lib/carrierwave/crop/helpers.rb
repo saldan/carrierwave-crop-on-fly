@@ -28,7 +28,7 @@ module CarrierWave
           end
           wrapper_attributes = {id: "#{model_name}_#{attachment}_previewbox_wrapper", style: "width:#{width}px; height:#{height}px; overflow:hidden", class: 'previewbox_wrapper'}
 
-          preview_image = @template.image_tag(attachment_instance.url, id: "#{model_name}_#{attachment}_previewbox")
+          preview_image = @template.image_tag(attachment_instance.url || opts[:default_image], id: "#{model_name}_#{attachment}_previewbox")
           @template.content_tag(:div, preview_image, wrapper_attributes)
         end
       end
@@ -68,7 +68,7 @@ module CarrierWave
             width, height = *sizes
           end
 
-          output << @template.image_tag(attachment_instance.url, id: "#{model_name}_#{attachment}_cropbox", data: { output_width: width, output_height: height })
+          output << @template.image_tag(attachment_instance.url || opts[:default_image], id: "#{model_name}_#{attachment}_cropbox", data: { output_width: width, output_height: height })
 
           @template.content_tag(:div, output, wrapper_attributes)
         end
